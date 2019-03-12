@@ -46,7 +46,7 @@ RUN \
 	    rm -rf /tmp/composer && \
 	echo "PECL packages" && \
 		apt-get install -y libgpgme11-dev make pkg-config libmagickwand-dev libssl-dev && \
-		chmod 777 /usr/lib/php/7.0 && \
+		chmod 777 /usr/lib/php/${PHPVER} && \
 		pecl channel-update pecl.php.net && \
 		pecl install gnupg && \
 		yes '' | pecl install imagick && \
