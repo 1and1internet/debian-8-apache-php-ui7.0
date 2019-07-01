@@ -58,6 +58,7 @@ RUN \
     chmod 777 -R /var/www  && \
     apache2ctl -t && \
     mkdir -p /run /var/lib/apache2 /var/lib/php && \
-    chmod -R 777 /run /var/lib/apache2 /var/lib/php /etc/php/${PHPVER}/php.ini
+    chmod -R 777 /run /var/lib/apache2 /var/lib/php /etc/php/${PHPVER}/php.ini && \
+    dpkg -r --force-all manpages manpages-dev systemd systemd-sysv
 
 COPY --from=ioncube_loader /ioncube/ioncube_loader_lin_${PHPVER}.so /usr/lib/php/${PHPVER}/extensions
