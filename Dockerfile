@@ -22,6 +22,7 @@ COPY files /
 COPY --from=php_debs /legacy-php-build/debs/${PHPVER}/*.deb /tmp/
 COPY --from=configurability /go/src/github.com/1and1internet/configurability/bin/configurator /usr/bin/configurator
 COPY --from=configurability /go/src/github.com/1and1internet/configurability/bin/plugins/* /opt/configurability/goplugins/
+COPY --from=ioncube_loader /ioncube/ioncube_loader_lin_${PHPVER}.so /usr/lib/php/${PHPVER}/extensions/ioncube_loader_lin_${PHPVER}.so
 
 RUN \
     apt-get update && \
@@ -51,7 +52,6 @@ RUN \
 		pecl channel-update pecl.php.net && \
 		pecl install gnupg && \
 		yes '' | pecl install imagick && \
-		yes '' | pecl install mongodb && \
     apt-get remove -y curl autoconf libtool make pkg-config libmagickwand-dev libssl-dev && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/* && \
@@ -61,4 +61,3 @@ RUN \
     chmod -R 777 /run /var/lib/apache2 /var/lib/php /etc/php/${PHPVER}/php.ini && \
     dpkg -r --force-all manpages manpages-dev systemd systemd-sysv
 
-COPY --from=ioncube_loader /ioncube/ioncube_loader_lin_${PHPVER}.so /usr/lib/php/${PHPVER}/extensions
